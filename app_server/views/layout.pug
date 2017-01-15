@@ -1,0 +1,16 @@
+doctype html
+html
+  head
+    title= title
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    // cargamos boostrap-3
+    link(rel='stylesheet', href='/bootstrap-3/css/bootstrap.min.css', attr)
+    // hoja de estilos del sitio
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    .container
+      block content
+
+  script(async='' src='/javascripts/jquery-3.1.1.min.js')
+  script(src='/bootstrap-3/js/bootstrap.min.js')
