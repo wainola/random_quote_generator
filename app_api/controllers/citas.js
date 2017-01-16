@@ -14,7 +14,8 @@ module.exports.listaDeCitas = function(){
   request(
     opcionesRequest,
     function(err, res, html){
-      var arr = [], i, elementos;
+      var arr = [], i, elementos, datoProvisorio, flag;
+      flag = false;
       var $ = cheerio.load(html);
       $('#mw-content-text').children('ul').children('li').each(function(index){
         arr.push({
@@ -24,7 +25,9 @@ module.exports.listaDeCitas = function(){
           })
         });
       });
+      // Procesamos los datos para separar autor de obra.
       console.log(arr);
+      console.log(arr[16]);
     }
   )
 };
