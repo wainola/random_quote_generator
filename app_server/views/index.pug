@@ -6,5 +6,7 @@ block content
       .panel.panel-primary.text-center
         .panel-heading Radom Quote Generator of AI
         .panel-body
-            h2 Hola mundo aca pondremos las citas!
-            button.btn.btn-success(type="button") Nueva cita
+          each quotes in citas.citas
+            p.lead= quotes
+            p=citas.autor
+          button#nuevaCita.btn.btn-success(type="button") Nueva cita
