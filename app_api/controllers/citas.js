@@ -14,8 +14,8 @@ module.exports.listaDeCitas = function(){
   request(
     opcionesRequest,
     function(err, res, html){
-      var arr = [], i, elementos, datoProvisorio, flag;
-      flag = false;
+      var arr = [], i, elementos;
+      var datoProvisorio = '';
       var $ = cheerio.load(html);
       $('#mw-content-text').children('ul').children('li').each(function(index){
         arr.push({
@@ -25,6 +25,23 @@ module.exports.listaDeCitas = function(){
           })
         });
       });
+      // Procesando un dato particular de la entrada 17.
+      $('#mw-content-text').children('dl').children('dd').each(function(index){
+        if(index === 0){
+          datoProvisorio;
+        } else{
+          datoProvisorio = $(this).text().split('\n');
+        }
+        // eliminamos strings vacios.
+        //arr[16].contenido.push(datoProvisorio);
+      });
+      datoProvisorio = datoProvisorio.filter(function(elemento){
+        return elemento !== '';
+      })
+      for(i in datoProvisorio){
+        arr[16].contenido.push(datoProvisorio[i]);
+      }
+      //arr[16].contenido.push(datoProvisorio);
       // Procesamos los datos para separar autor de obra.
       console.log(arr);
       console.log(arr[16]);
