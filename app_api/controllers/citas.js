@@ -31,20 +31,30 @@ module.exports.listaDeCitas = function(){
           datoProvisorio;
         } else{
           datoProvisorio = $(this).text().split('\n');
-        }
-        // eliminamos strings vacios.
-        //arr[16].contenido.push(datoProvisorio);
+        };
       });
+      // eliminacion de strings vacios.
       datoProvisorio = datoProvisorio.filter(function(elemento){
         return elemento !== '';
       })
       for(i in datoProvisorio){
         arr[16].contenido.push(datoProvisorio[i]);
       }
-      //arr[16].contenido.push(datoProvisorio);
+      // Eliminamos elementos que no sirven dado el indice que le indiquemos.
+      arr.splice(32);
+      //console.log(arr);
       // Procesamos los datos para separar autor de obra.
-      console.log(arr);
-      console.log(arr[16]);
+      var autores = [];
+      for(i in arr){
+        if(arr[i].contenido.length > 2){
+          autores.push(arr[i].contenido[2]);
+        } else {
+          autores.push(arr[i].contenido[1]);
+        }
+      }
+      console.log(arr.length);
+      console.log(autores.length);
+      console.log(autores);
     }
   )
 };
