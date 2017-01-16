@@ -8,9 +8,8 @@ var mongoose = require('mongoose');
 
 var citasSchema = new mongoose.Schema({
   index: {type: Number, required: true},
-  autor: {type: String, required: true},
-  contenido: {type: String, required: true},
   referencia: {type: String, required: true},
+  contenido: {type: String, required: true},
   creadoEn: {type: Date, "default": Date.now}
 });
 

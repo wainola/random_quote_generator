@@ -5,7 +5,10 @@ var request = require('request');
 var cheerio = require('cheerio');
 
 module.exports.listaDeCitas = function(){
-  var opcionesRequest;
+  var opcionesRequest, arr, autores, datoProvisorio;
+  arr = [];
+  autores = [];
+  datoProvisorio = '';
   opcionesRequest = {
     url: 'https://en.wikiquote.org/wiki/Artificial_intelligence',
     method: 'GET',
@@ -14,8 +17,6 @@ module.exports.listaDeCitas = function(){
   request(
     opcionesRequest,
     function(err, res, html){
-      var arr = [], i, elementos;
-      var datoProvisorio = '';
       var $ = cheerio.load(html);
       $('#mw-content-text').children('ul').children('li').each(function(index){
         arr.push({
@@ -43,8 +44,7 @@ module.exports.listaDeCitas = function(){
       // Eliminamos elementos que no sirven dado el indice que le indiquemos.
       arr.splice(32);
       //console.log(arr);
-      // Procesamos los datos para separar autor de obra.
-      var autores = [];
+      // Procesamos los datos para separar autor de obra.;
       for(i in arr){
         if(arr[i].contenido.length > 2){
           autores.push(arr[i].contenido[2]);
