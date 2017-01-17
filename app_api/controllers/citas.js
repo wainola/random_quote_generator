@@ -4,7 +4,12 @@ var Citas = mongoose.model('Citas');
 var request = require('request');
 var cheerio = require('cheerio');
 
-module.exports.listaDeCitas = function(){
+var enviarRespuestaJson = function(res, status, content){
+  res.status(status);
+  res.json(content);
+};
+
+module.exports.listaDeCitas = function(req, res){
   var opcionesRequest, arr, autores, datoProvisorio;
   arr = [];
   autores = [];
@@ -37,24 +42,50 @@ module.exports.listaDeCitas = function(){
       // eliminacion de strings vacios.
       datoProvisorio = datoProvisorio.filter(function(elemento){
         return elemento !== '';
-      })
+      });
       for(i in datoProvisorio){
         arr[16].contenido.push(datoProvisorio[i]);
       }
+      //console.log(arr[16].contenido);
       // Eliminamos elementos que no sirven dado el indice que le indiquemos.
       arr.splice(32);
       //console.log(arr);
       // Procesamos los datos para separar autor de obra.;
       for(i in arr){
         if(arr[i].contenido.length > 2){
-          autores.push(arr[i].contenido[2]);
+          autores.push({
+            referencia: arr[i].contenido[2]
+          });
+          arr[i].contenido.splice(2);
         } else {
-          autores.push(arr[i].contenido[1]);
+          autores.push({
+            referencia: arr[i].contenido[1]
+          });
+          arr[i].contenido.splice(1);
         }
       }
-      console.log(arr.length);
-      console.log(autores.length);
-      console.log(autores);
+      // Creamos la base de datos.
+      for(var i = 0; i < arr.length, i < autores.length; i++){
+        Citas.create({
+          index: arr[i].indice,
+          referencia: autores[i].referencia,
+          contenido: arr[i].contenido,
+        });
+      }
     }
   )
 };
+
+module.exports.listarCitasJson = function(req, res){
+  Citas.find(function(err, citas){
+    if(err){
+      enviarRespuestaJson(res, 404, err);
+    } else if (!citas){
+      enviarRespuestaJson(res, 404, {
+        "mensaje": "no hay citas almacenadas"
+      });
+    } else {
+      enviarRespuestaJson(res, 200, citas);
+    }
+  });
+}
