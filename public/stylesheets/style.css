@@ -6,11 +6,9 @@ body {
 a {
   color: #00B7FF;
 }
-/* Centrando el panel donde desplegamos el contenido.*/
-.panel{
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 70%;
+#contenidoCita{
+  text-align: justify;
+}
+#referenciaCita{
+  font-weight: bold;
 }

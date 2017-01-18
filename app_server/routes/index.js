@@ -3,6 +3,6 @@ var router = express.Router();
 var controladorCitasAi = require('../controllers/citasAi');
 
 /* GET home page. */
-router.get('/', controladorCitasAi.citasAleatorias);
+router.get('/', controladorCitasAi.cargaPagina);
 
 module.exports = router;

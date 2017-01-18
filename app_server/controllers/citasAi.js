@@ -1,17 +1,45 @@
-module.exports.citasAleatorias = function(req, res){
-  var numeroAleatorio, citas;
-  numeroAleatorio = Math.floor(Math.random()*5 + 1);
+var request = require('request');
+var apiOptions = {
+  server: 'http://localhost:3000'
+}
+
+module.exports.cargaPagina = function(req, res){
   res.render('index', {
-    title: "Citas aleatorias",
-    citas: {
-        "autor": "Friedrich Nietzsche",
-        "citas": [
-          "Without music, life would be a mistake.",
-          "It is not a lack of love, but a lack of friendship that makes unhappy marriages.",
-          "That which does not kill us makes us stronger.",
-          "I'm not upset that you lied to me, I'm upset that from now on I can't believe you.",
-          "And those who were seen dancing were thought to be insane by those who could not hear the music."
-        ]
-      }
+    title: 'Citas aleatorias'
   });
 };
+
+// Construimos una funcion que renderice todo el contenido que ya esta
+// puesto en la funcion citasAleatorias.
+/*var renderizarCitasAleatorias = function(req, res, responseBody){
+  var mensaje;
+  if(!(responseBody instanceof Array)){
+    mensaje = 'Error en la carga de las citas';
+    responseBody = [];
+  } else {
+    if(!responseBody.length){
+      mensaje = 'No existen citas guardadas';
+    }
+  }
+  res.render('index', {
+    title: 'Citas aleatorias',
+    citas: responseBody,
+    mensaje : mensaje
+  });
+};*/
+/*module.exports.citasAleatorias = function(req ,res){
+  var opcionesDeRequest, ruta;
+  ruta = '/api/citas/listaCitas';
+  opcionesDeRequest = {
+    url: apiOptions.server + ruta,
+    method: 'GET',
+    json: {}
+  };
+  request(
+    opcionesDeRequest,
+    function(err, response, body){
+      var data = body;
+      renderizarCitasAleatorias(req, res, data);
+    }
+  );
+};*/

@@ -79,13 +79,35 @@ module.exports.listaDeCitas = function(req, res){
 module.exports.listarCitasJson = function(req, res){
   Citas.find(function(err, citas){
     if(err){
+      console.log('Se produjo un error con las citas');
       enviarRespuestaJson(res, 404, err);
     } else if (!citas){
+      console.log('No hay citas que enviar!')
       enviarRespuestaJson(res, 404, {
         "mensaje": "no hay citas almacenadas"
       });
     } else {
+      console.log('Citas enviadas exitosamente!')
       enviarRespuestaJson(res, 200, citas);
     }
   });
+}
+
+module.exports.borrarCita = function(req, res){
+  var citaid = req.params.citaid;
+  if(citaid){
+    Citas.findByIdAndRemove(citaid, function(err, cita){
+      if(err){
+        console.log('No se pudo eliminar la cita');
+        enviarRespuestaJson(res, 404, {
+          'mensaje': 'No se pudo eliminar la cita'
+        });
+      } else {
+        console.log('Remocion exitosa de la cita');
+        enviarRespuestaJson(res, 200, {
+          'mensaje': 'remocion exitosa de la cita'
+        });
+      }
+    });
+  }
 }
